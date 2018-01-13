@@ -3,6 +3,8 @@ These are scripts that I saved from my Linux shell while taking the IT341 course
 
 The first two assignments listed are working with the Linux tool "sed"
 
+The professor who guided us through the course had us do labs. Unfortunately, they were all done on a VM. There's no way to put that on github. However, you will find that he required us to make admin logs. Every change we made in a lab, we would document the change and the outcome. I wrote a script "tools.sh" that could generate a new log file for each project/lab that we did. The key to being a System Admin is to make everything as automated as possible. It starts with the basic things, a admin log being formatted ONCE and to be able to duplicate that process using a computer, instead of typing it yourself.
+
 The final project script file is named: "final_script.sh"
 
 The script is located under "Final_project"
