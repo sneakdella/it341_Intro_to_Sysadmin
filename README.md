@@ -3,6 +3,9 @@ These are scripts that I saved from my Linux shell while taking the IT341 course
 
 The first two assignments listed are working with the Linux tool "sed"
 
+The final project script file is named: "final_script.sh"
+
+The script is located under "Final_project"
 
 ############## FINAL PROJECT FOLDER, VERY IMPORTANT###############################################
 The final project uses "sed" extensively to almost fully automate an installation of a Ubuntu Server. It will modify the following files:
