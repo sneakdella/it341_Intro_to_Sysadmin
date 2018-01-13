@@ -1,0 +1,88 @@
+PROJECT 2
+-- Setup BRIDGED mode on VM before doing this
+-- Confirm interfaces file
+-- Edit Hosts File "/etc/hosts"
+	+ add the VMs from our section only.
+	+ add the real clients (host machines)
+	+ add the IPv6
+-- Bonus? Send email to self with MAC address?
+-- sudo /etc/init.d/networking restart
+*** Setup static interface ***
+-- sudo cp /etc/network/interfaces /etc/network/interfaces.saved
+-- Change "iface ens33 inet dhcp" to "iface ens33 inet static"
+-- Add "network 10.0.0.0"
+-- Add "address 10.0.0.y"
+-- Add "gateway 10.0.0.1"
+-- Add "broadcast 10.0.0.255"
+-- Add "netmask 255.255.255.0"
+-- sudo /etc/init.d/networking restart
+-- ping test www.yahoo.com
+-- ssh test it20?
+**************************
+Project 3
+-- sudo apt-get update
+-- sudo apt-get install nis
+-- sudo apt-get install sysv-rc-conf
+-- ADD "nis" after "compat" on the following lines
+	+ passwd:
+	+ group:
+	+ shadow:
+-- For hosts do after files
+	+ hosts" ---- "file nis dns"
+-- modify /etc/yp.conf
+	+ add "ypserver 10.0.0.1"
+-- Check to make sure default domain is "it.cs.umb.edu"
+	+ "cat /etc/defaultdomain"
+-- Add homedirectory for dummy login
+	+ sudo mkdir /home/testme
+-- Restart NIS 
+	+"sudo service ypbind restart"
+	+"sudo sysv-rc-conf ypbind on"
+-- Run command
+	+ "sudo chown testme /home/testme
+-- and this command
+	+ "sudo chgrp testme /home/testme
+-- requirement for "sudo adduser --no-create-home testme"
+-- &&&server side -
+	& cd /var/yp
+	& sudo make
+	& sudo sysv-rc-conf ypbind on
+-- test login
+	+ itvm25-4b -- testme
+	+ password: testme
+-- sudo apt-get update
+-- sudo apt-get install nfs-common
+-- sudo apt-get install nfs-kernel-server
+-- as sysadmin "ps -ef | grep bind" --- should see entries for ypbind and rpcbind
+
+****************************
+
+Project 4
+
+****************************
+
+--sudo apt-get install autofs
+--sudo mv /home /home.itvm24-4b
+--sudo mkdir /home
+
+Edit /etc/passwd to put sysadmin's home....sed?
+
+Edit /etc/exports
+	+ /home.itvm25-4b 10.0.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+
+Edit /etc/auto.master --> append!
+	+ /home /etc/auto.home
+
+Mount new account's home to " itvm25-4b:/home.itvm25-4b/& "
+
+
+****************************
+
+Project 5
+
+****************************
+
+Change /etc/nsswitch.conf
+	+ FROM: "hosts: ......"
+	+ TO: "hosts: dns files nis"
+

@@ -1,0 +1,93 @@
+ |Jacob Yuhas | 10/10/17 | project_4 Admin Log | NFS |
+-------------------------------------------------------
++ Attempted sudo apt-get install autofs and encountered an error
+	+ "Temporary Failure resolving 'us.archive.ubuntu.com'"
+	+ Multiple ubuntu.com addresses were unable to be reached
+	+ Checked Ifconfig, settings are correct.
+	+ Checked "/etc/network/interfaces"
+	-- Reads as follows
+	
+	auto lo
+	iface lo inet loopback
+	
+	auto ens33
+	iface ens33 inet static
+
+	network 10.0.0.0
+	address 10.0.0.172
+	broadcast 10.0.0.255
+	netmask 255.255.255.0
+	
+	--- end "/etc/network/interfaces"
+	
+	+ Settings are correct.
+
++ Changed /etc/network/interfaces file to the following
+	
+	----
+	auto lo
+	iface lo inet loopback
+
+	auto ens33
+	iface ens33 inet dhcp
+	----
++ Restarted network service via "sudo service networking restart"
++ "sudo apt-get update" now connecting to the ubuntu distribution servers.
++ "sudo apt-get install autofs" completed successfully
++ Copied static file interface back over. Restarted networking services 
+and the interfaces file would not take over as the new interfaces 
+configuration. So I instead initiated a "sudo reboot"
+
++ Beginning to set up the /home/ directories:
+	+ Executed "sudo mv /home /home.itvm25-3b"
+	+ Created a new "/home" directory in root "sudo mkdir /home"
+
++ Modified "/etc/passwd" in order to include the user "sysadmin" 
+as a local user and not part of the NFS. To do this:
+	+ sudo vim /etc/passwd/
+	+ located "sysadmin"
+	+ Changed the portion of "/home" to "/home.itvm25-3b" to ensure
+	the sysadmin account is local.
+
++ To check to make sure the changes had taken place successfully, I 
+logged out of sysadmin on itvm25-3b and re-logged in to itvm25-3b. Log in 
+was successful and I ran "pwd" to ensure I had a home directory.
++ When running "pwd" the console returned "/home.itvm25-3b/sysadmin"
+
++ Begin modifying /etc/exports file
++ Added the line "/home.itvm25-3b 10.0.0.0/24(rw,sync,no_root_squash,
+no_subtree_check)
+	+ The exports file basically sets up a security for the NFS
+	on what gets shared to the mounted file system and what
+	does not get shared.
+
+	+ The "rw" property allows for reading-writing
+	+ "sync" Ensures requests are committed to storage before responding
+	to a request
+	+ "no_subtree_check" when exporting a subdirectory... but also used
+	when "no_root_squash" is used.
+	+ "no_root_squash" is used to allow file directories that
+	are owned by root can be accessed.
+	++++ Information above from "https://linux.die.net/man/5/exports"
+--- Stopped at 10/10/2017 -- Need Professor Kelly to do Step 7 ----
+---- Begin 10/12/2017 ----
+
++ Professor Kelly uncommented my name from the "/etc/auto.home" file.
+
++ When attempting "scp it341@it20.cs.umb.edu:/etc/auto.home /etc/auto.home" I get the following error:
+	+  Could not chdir to home directory /home/it341: No such file or 
+	   directory /etc/auto.home: Permission denied
+
+	+ Ran same command as sudo and it was successful. "auto.home 100%"
+	+ It341 does not have a home directory so the other error "No such file or directory" so it does not matter for the operation I am attempting.
++ Restarted autonfs service and was able to log into "jayuhas@itvm25-3b" with a home directory successfully.
+
+---- Questions -----
+
+1.) For some of the machines I was logging into, it would not mount my home directory from itvm25-3b.
+I logged successfully into itvm22-3b with a home directory as "jayuhas" versus the other VMs (itvm23-25a).
+
+2.) The Client-Server model works by clients requesting information from the server. The server
+provides resources to the clients. In some cases the clients may provide information back
+to the server but generally do not offer resources back and forth. Servers fulfill requests
+and provide information such as HTTP for client users in a web setting as an example.

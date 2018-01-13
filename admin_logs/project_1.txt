@@ -1,0 +1,40 @@
+ 
+| Jacob Yuhas | 09/07/17 | Project_1 Admin Log | Installing Ubuntu on IT25 |
+---------------------------------------------------------------
++ Downloaded ISO
++ Created section3b directory on IT25
++ Watching other group install their Ubuntu VM
++ CAT5 cable is in ITlabLAN port
++ Chose Typical Installation
++ Halted until Tuesday. Left off at choosing boot CD and language type.
++ English selected for Keyboard layout and OS language
++ Country chosen: United States
++ Hostname set to itvm25-3b
++ sysadmin is the user and account name set
++ itvm25-3b is the password
++ "No" for encrypting /home/
++ Time zone chosen: New York
++ Partitioning Method: "Guided - use entire disk"
++ OS written to VHD
++ No Proxy Set
++ No Additional/Automatic  Updates Selected
++ Just standard Ubuntu selected for installation, no extra modules
++ GRUB Boot Loader Selected for MBR
++ Successfully Logged in
++ Powered Off itvm25-3b
++ Took Snapshot
++ Backed up VM to another directory on PC
++ Removed CD/DVD-ROM
++ itvm25-3b rebooted successfully
++ sysadmin logged in successfully
++ INSTALLATION COMPLETE
++ Running "sudo apt-get update" for updates-- fetched 204kb of info
++ Running "sudo apt-get upgrade" to apply the updates (50 Mbs)
++ Upgrade Successful
++ Running "sudo apt-get install openssh-server"
++ Installation of openssh-server successful
++ Powered Off itvm25-3b
++ Snapshot Taken
++ Powered on itvm25-3b
++ Logged in successfully with sysadmin
++

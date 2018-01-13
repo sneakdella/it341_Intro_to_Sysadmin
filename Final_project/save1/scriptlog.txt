@@ -1,0 +1,22 @@
+Hosts file modified successfully
+ 
+ 
+Restarting 'etc/init.d/networking' 
+ 
+[0;31m Restart Not Enabled. Please uncomment[0m
+ 
+ 
+Doing Ping test
+ 
+PING atsv2-fp.wg1.b.yahoo.com (98.139.180.181) 56(84) bytes of data.
+64 bytes from media-router-fp2.prod.media.vip.bf1.yahoo.com (98.139.180.181): icmp_seq=1 ttl=51 time=19.9 ms
+64 bytes from media-router-fp2.prod.media.vip.bf1.yahoo.com (98.139.180.181): icmp_seq=2 ttl=51 time=20.0 ms
+64 bytes from media-router-fp2.prod.media.vip.bf1.yahoo.com (98.139.180.181): icmp_seq=3 ttl=51 time=31.1 ms
+64 bytes from media-router-fp2.prod.media.vip.bf1.yahoo.com (98.139.180.181): icmp_seq=4 ttl=51 time=20.0 ms
+
+--- atsv2-fp.wg1.b.yahoo.com ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3015ms
+rtt min/avg/max/mdev = 19.933/22.798/31.193/4.847 ms
+ 
+Ping Test Done
+ 

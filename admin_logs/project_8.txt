@@ -1,0 +1,66 @@
+ | Jacob Yuhas | 11/17/17 | project_8 Admin Log | rsync |
+---------------------------------------------------------------
++ Invoked Snapshot Backup of VM for itvm25-3b
+
++ Selected option 2 for project_8
+	+ I will be backing up my VM with rsync to it20
+	+ Opinion: DVDs and tapes are a thing of the past.
+	+ It is much better to do 2 on-site backups and 1 cloud backup.
+	  in an enterprise enviornment.
+
++ I have decided to write a bash script instead of typing out the command
+	+ The bash script will:
+	+ - invoke rsync as "sysadmin" on my VM with the following command.
+		+ "sudo rsync -azvv -e ssh /etc jayuhas@it20.it.cs.umb.edu:
+			/tmp/backup/itvm25-3b/$DATE"
+	+ $DATE will be a variable that will pull the current date within
+	  the script.
+
++ Created new file "dersnc.sh"
+
++ Appended dersnc.sh to set variable "DATE"
+	+ 'DATE= date +%Y%m%d
+	+ echo $DATE
+
++ Exited vim and executed the script
+	+ Returned "20171117"
+	+ DATE works!
+
++ Appended dersnc.sh to invoke rsync command
+	+ Returned: <alot of files>
+	+ Returned: "sent 824,22 bytes, received 17,191 bytes 129,448.15 bytes/sec"
+	+ Returned: "total size is 2,079,351 speedup is 2.47"
+
++ I used a script, the account sysadmin on itvm25-3b to execute rsync
+   and "jayuhas" with ssh to it20 to backup to it20.
+
++ The reason behind two accounts:
+	+ sysadmin on our local VM machine is in the sudoers file and jayuhas is not.
+	+ There is no reason to use sysadmin on it20 for a simple task.
+		+ Don't need sysadmin to write to the /tmp/ directory
+		  by default.
+	+ Permissions! I attempted to change into the directory of
+	  "/tmp/backups/itvm25-3b" as it341 ON IT20 and it did not allow me in.
+	  so I logged in a jayuhas and it allowed me in.
+	+ Bottom line, security. No one else can see it but me
+
++ The difference between "/etc" and "/etc/" in our case is when rsync begins
+  copying the directories with "/etc" it will create a new directory "/etc" within
+  the /tmp/backup directory on it20 like this: "/tmp/backup/itvm25-3b/20171117/etc"
+  and then store the contents under "etc"
+	+ If the script were to run with "/etc/" it would create the directory as
+	  such: "/tmp/backup/itvm25-3b/20171117/" there would be no /etc/ directory
+	  and all of the files of itvm25-3b's "/etc/" directory would be stored
+	  under "..../20171117/" so just the contents would be copied over.
+	+ That would suck to restore multiple directories if everything just gets
+	  shoved under "20171117/" instead of each directory having it's own folder.
+	+ The Data would be backed up but all the files would be in one place...
+	  which isn't good.
+	+ For instance: two directories have the same file under its parent...
+	  I.E.... "/home/jayuhas" and "/home/sysadmin" both have the file
+	  "backup.txt" if the extra slash is there for rsync and rsync backs up
+	  to the same directory for all the home profiles, everyones files would
+	  be cluttered together and possibly overwritten.
+	+ That extra slash causes a headache.
+
+

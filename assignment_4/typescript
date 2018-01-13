@@ -1,0 +1,83 @@
+Script started on Thu 09 Nov 2017 02:34:00 PM EST
+jayuhas@itserver6:~/it341/assign4$ cp /home/ckelly/course_files/it341_files/* .
+jayuhas@itserver6:~/it341/assign4$ ls
+colors.txt  course_directory.txt  day.txt  fox.txt  hosts  interfaces  letters_digits.txt  new_night.txt  night.txt  passwd  typescript
+jayuhas@itserver6:~/it341/assign4$ cat night.txt
+nite
+night
+nighty night night
+night and day
+day and night
+all the live long night
+night after night after night
+jayuhas@itserver6:~/it341/assign4$ sed 's/night/date/[K[K[Ky/' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt 
+nite
+day
+dayy night night
+day and day
+day and day
+all the live long day
+day after night after night
+jayuhas@itserver6:~/it341/assign4$ sed 's/night/day/g' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt 
+nite
+day
+dayy day day
+day and day
+day and day
+all the live long day
+day after day after day
+jayuhas@itserver6:~/it341/assign4$ sed 's/day/night/g' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat course_directory.txt 
+/courses/it244/f13/ghoffmn
+jayuhas@itserver6:~/it341/assign4$ sed 's|f13|s14|[K|' course_directoy[Kry.txt > new_course_directory.txt
+jayuhas@itserver6:~/it341/assign4$ sed '/[K/nite/a\ this is a new line' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat bew[K[K[Knew_night.txt 
+nite
+ this is a new line
+night
+nighty night night
+night and day
+day and night
+all the live long night
+night after night after night
+jayuhas@itserver6:~/it341/assign4$ sed '/after\a\[K[K[K/\[Ka\this is the end of a line' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt
+nite
+night
+nighty night night
+night and day
+day and night
+all the live long night
+night after night after night
+this is the end of a line
+jayuhas@itserver6:~/it341/assign4$ sed '/nite/d' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt 
+night
+nighty night night
+night and day
+day and night
+all the live long night
+night after night after night
+jayuhas@itserver6:~/it341/assign4$ sed '/long/d' night.txt > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt 
+nite
+night
+nighty night night
+night and day
+day and night
+night after night after night
+jayuhas@itserver6:~/it341/assign4$ sed '/nite/d' night.txt | sed '/after/a\this is the end of the line' > new_night.txt
+jayuhas@itserver6:~/it341/assign4$ cat new_night.txt
+night
+nighty night night
+night and day
+day and night
+all the live long night
+night after night after night
+this is the end of the line
+jayuhas@itserver6:~/it341/assign4$ exit
+exit
+
+Script done on Thu 09 Nov 2017 02:38:21 PM EST

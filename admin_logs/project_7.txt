@@ -1,0 +1,54 @@
+ | Jacob Yuhas | 11/15/17 | project_7 Admin Log | rdist |
+---------------------------------------------------------------
+
++ Response to first question:
+	+ rdist would be used in a scenario where an SA would
+	  want to distribute files out from a server to a network
+	  of client machines in a Linux enviornment. This can be
+	  anything such as documents and file configurations for
+	  the /etc/ directory.
+
+	+ rsync would be used more as a mirroring technique in order
+	  to retain redundancy in case a server goes down. rsync
+	  is very similar to Google Drive but can be used as a backup
+	  and mirroring tool. You wouldn't want to use rsync for distrubuting
+	  files.. lets say for example a template was sent out for a document
+	  if that template was edited and saved on a client machine for 
+	  use later, rsync would eventually overwrite that file on the next
+	  pass of it's incremental syncing task.
+
++ Installing rdist
+	+ Executed command: "sudo apt-get update"
+	+ Executed command: "sudo apt-get install rdist"
+	+ Both commands were completed successfully
+
++ Creating the rdist script "myrdist.sh" 
+	+ Script creates stores two variables with
+	  the path names for rdist and SSH.
+	+ used "chmod +x myrdist.sh" to ensure it is executable
+
++ Defining the distfile
+	+ Created new distfile in home directory
+	+ named it "distfile"
+	+ Ammended distfile to show the following code
+		+ "homedr: /home/jayuhas -> ( itvm25-3b ) "
+		+ "install /tmp/home; "
++ Executing script
+	+ Ran myrdist.sh
+	+ Script successfully started and I was required to login
+	  I entered my credentials and it proceeded to do a copy
+	  of my home directory "/home/jayuhas" to my tmp/ directory.
+	+ Note: I can see how this can easily... EASILY screw up
+	  a file system if one were to install /etc/hosts to another
+	  machine. It would be nice to have verification for each
+	  file instead of the general "overify" parameter.
+
++ Executed again with new rdist file copying /etc/hosts to /tmp/etc
+	+ "updating host itvm25-3b"
+	+ "/etc/hosts: installing"
+	+ "updating of itvm25-3b finished"
+	+ Returned to shell and I changed directory to temp
+	+ the hosts file was present and I checked with "cat hosts"
+	  to see if all the information was copied over.
+	+ Both files contents were identical
+

@@ -1,0 +1,89 @@
+ | Jacob Yuhas | 09/21/17 | project_3 Admin Log | NIS |
+---------------------------------------------------------------
++ Ran "sudo-apt-get update" -- Successful
+
++ Ran cmd "sudo apt-get install nis"
+
++ NIS installed successfully with the domain name set 
+	to "it.cs.umb.edu" as the domain
+
++ Ran cmd "sudo apt-get install sysv-rc-conf" -- 
+	sysv-rc-conf installed successfully
+
++ Checked /etc/default/nis to made sure it matched the lab document. 
+	Nothing needed to be changed.
+
++ The subtle difference found in /etc/default/nis was on the "-no-dbus" arg. 
+It is basically an argument that dissallows 'dbus'.
+	+ D-bus is actually an acronym for "Desktop Bus"
+	+ D-bus allows communication between mutliple computer programs on the same		 machine.
+	+ Source of information: "Introduction to D-Bus" Freedesktop.org (2015)
+	+ I could see this being significant when it comes to a database
+	  requiring to communicate with a server program to retrieve information.
+	  No communication between server and db no information given to the client!
+
+
++ Changed Permissions with sudo to temporarily edit /etc/nsswitch.conf 
+	with the line "sudo chmod 777 /etc/nsswitch.conf"
+
++ added "nis" to the following lines
+	+ passwd: compat nis 
+	+ group: compat nis
+	+ shadow: compat nis
+	+ hosts: files nis dns
+
++ Ensured /etc/nsswitch.conf matched the lab example.
++ Changed permissions to 111 to /etc/nsswitch.conf
++ Realized mistake, Changed permissions to 744 to /etc/nsswitch.conf
++ Attempted to Back up /etc/nsswitch.conf via 'cp /etc/nsswitch.conf /etc/nsswitch.bak
++ Permission was denied
++ Attempted to back up /etc/nsswitch.conf with sudo. Successful!
+
++ Changed permissions to 777 on /etc/yp.conf temporarily for editing
++ Added line into /etc/yp.conf "ypserver 10.0.0.1"
++ Changed permissions to 744 on /etc/yp.conf
++ Ensured domain is "it.cs.umb.edu" via "cat /etc/defaultdomain"
+
++ Created home directory for my linux username: "jayuhas" located at /home/jayuhas"
+
++ Restarted NIS, command prompt provided no indication of success or failure.
++ Checked to see if NIS was running via "service --status-all"
++ I confirmed NIS restarted sucessfully via the command above output "[ + ] nis"
+
++ Following the steps above, I was given access to it20 by Professor Kelly
+and was able to run "sudo adduser --no-create-home jayuhas
+
++ Witnessed Professor Kelly run the following commands:
+	+ sudo make
+	+ sudo sysv-rc-conf ypbind on
++ "sysv-rc-conf" from the manual is "Run-level configration for SysV like init
+script links"
+	+ It is basically an interface that allows automation of symbolic links
+	  in Ubuntu
+
++ Tested log in to itvm25-3b as 'jayuhas' and it failed to authenticate.
+	+ Investigated and found that my /etc/network/interfaces file was 
+	  incorrectly configured.
+	+ Swapped my interfaces2.save file which had my correct itvm IP address
+	  into the interfaces file using "sudo cp interfaces2.saved interfaces"
+	+ Began project 4 by following the first step only.
+		+ Ran sudo-aptget update
+		+ Ran sudo apt-get install nfs-common
+		+ sudo apt-get install nfs-kernel-server
+
++ Tested log in to itvm25-3b with 'jayuhas' again and it failed to authenticate.
+	+ Restarted itvm25-3b
+
++ Tested log in to itvm25-3b with 'jayuhas' for a third time and it authenticated.
++ No /home/ directory found for "jayuhas"
+	+ Logged in to sysadmin
+	+ Changed the owner of "/home/jayuhas" to jayuhas using the following
+	  command: 'sudo chown jayuhas /home/jayuhas'
+
++ Tested log in to itvm25-3b for a fourth time and it authenticated and loaded
+a home directory for the user 'jayuhas'
+
++ I noticed I missed a step "chgrp", so I applied the following command to
+itvm25-3b. "sudo chgrp jayuhas /home/jayuhas"
+
+

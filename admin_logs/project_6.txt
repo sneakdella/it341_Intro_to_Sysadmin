@@ -1,0 +1,39 @@
+| Jacob Yuhas | 11/07/17 | project_6 Admin Log | Key Based Authentication |
+---------------------------------------------------------------
+
++ Executed command: "ssh-keygen -t rsa -b 2048"
++ File was saved to default location /home.itvm25-3b/jayuhas/.ssh/id_rsa
++ Entered and confirmed the pass-phrase "qazxsw " (blank 
++ Changed directory into "/.ssh"
++ Appended the file "id_rsa" to "authorized_keys"
++ Attempting ssh from another machine (it20) as jayuhas
+	+ Only works if using ssh from itvm25-3b TO it20
+	+ Does not work when ssh into other VMs as jayuhas
+
++++++++++ "6.) Make sure you understand why this works"
++++++++++ I think you meant "how?" 
++++++++++ ssh-agent ran with a shell will allow us to supply
+	  a pass-phrase once and then store it in RAM...
+	  allowing for multiple usages. Only the user that wrote
+	  the passphrase to RAM can see it. The only way someone
+	  could make this insecure is if they were to leave the shell open
+	  and walk away from it... instead of locking/logging out of their
+	  account(s).
+
++ Executed "ssh-agent /bin/bash" to open a subshell within my current session.
++ Executed "ssh-add" and OS requested passphrase
+	+ Successful with "Identity added: /home/jayuhas/.ssh/id_rsa
+		(home/jayuhas/.ssh/id_rsa)"
++ The point of this exercise is to be able to self-authenticate when running
+	scripts across the network (on distributed hosts only). It is very
+	similar to "single-sign-on" technology where you sign in once and
+	your domain account (as an example) logs you into multiple office
+	applications, fileservers, office 365, email, shared drives etc.
+	Or for Administrative tasks for windows systems, it's like an 
+	Administrator domain account being authenticated via group policy.
+	In Windows Enviornments, everything is based off of the group policy
+	from the domain. The clients/hosts will download the group policy
+	and follow that group policy strictly. Here in Ubuntu, it is
+	essentially the same thing except the public key is stored on
+	a central server in the authorized_keys file... and caching
+	keys with ssh-agent.

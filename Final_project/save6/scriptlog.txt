@@ -1,0 +1,370 @@
+---------------------------------------------
+Hosts file modified successfully
+---------------------------------------------
+---------------------------------------------
+127.0.0.1	localhost
+127.0.0.1	ubuntu
+ 
+#Gateway
+10.0.0.1 it20.it.cs.umb.edu it20
+ 
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+fe00::0 ip6-localnet
+ff00::0 ip6-mcasterprefix
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+ 
+#Virtual Machines
+10.0.0.160 itvm21-3a.it.cs.umb.edu itvm21-3a
+10.0.0.161 itvm22-3a.it.cs.umb.edu itvm22-3a
+10.0.0.162 itvm23-3a.it.cs.umb.edu itvm23-3a
+10.0.0.163 itvm24-3a.it.cs.umb.edu itvm24-3a
+10.0.0.164 itvm25-3a.it.cs.umb.edu itvm25-3a
+10.0.0.165 itvm26-3a.it.cs.umb.edu itvm26-3a
+10.0.0.166 itvm27-3a.it.cs.umb.edu itvm27-3a
+10.0.0.167 itvm28-3a.it.cs.umb.edu itvm28-3a
+ 
+10.0.0.168 itvm21-3b.it.cs.umb.edu itvm21-3b
+10.0.0.169 itvm22-3b.it.cs.umb.edu itvm22-3b
+10.0.0.170 itvm23-3b.it.cs.umb.edu itvm23-3b
+10.0.0.171 itvm24-3b.it.cs.umb.edu itvm24-3b
+10.0.0.172 itvm25-3b.it.cs.umb.edu itvm25-3b
+10.0.0.173 itvm26-3b.it.cs.umb.edu itvm26-3b
+10.0.0.174 itvm27-3b.it.cs.umb.edu itvm27-3b
+10.0.0.175 itvm28-3b.it.cs.umb.edu itvm28-3b
+ 
+#Addresses for the Windows PCs
+10.0.0.240  it21.it.cs.umb.edu it21
+10.0.0.241  it22.it.cs.umb.edu it22
+10.0.0.242  it23.it.cs.umb.edu it23
+10.0.0.243  it24.it.cs.umb.edu it24
+10.0.0.244  it25.it.cs.umb.edu it25
+10.0.0.245  it26.it.cs.umb.edu it26
+10.0.0.246  it27.it.cs.umb.edu it27
+10.0.0.247  it28.it.cs.umb.edu it28
+
+---------------------------------------------
+---------------------------------------------
+Restarting 'etc/init.d/networking'
+---------------------------------------------
+---------------------------------------------
+[0;31m Restart Not Enabled. Please uncomment[0m
+---------------------------------------------
+---------------------------------------------
+Doing Ping test
+---------------------------------------------
+PING atsv2-fp.wg1.b.yahoo.com (98.139.180.180) 56(84) bytes of data.
+64 bytes from media-router-fp1.prod.media.vip.bf1.yahoo.com (98.139.180.180): icmp_seq=1 ttl=51 time=20.2 ms
+64 bytes from media-router-fp1.prod.media.vip.bf1.yahoo.com (98.139.180.180): icmp_seq=2 ttl=51 time=18.6 ms
+
+--- atsv2-fp.wg1.b.yahoo.com ping statistics ---
+4 packets transmitted, 2 received, 50% packet loss, time 3011ms
+rtt min/avg/max/mdev = 18.688/19.486/20.284/0.798 ms
+---------------------------------------------
+Ping Test Done
+---------------------------------------------
+---------------------------------------------
+NSSWITCH.CONF is changing...
+---------------------------------------------
+---------------------------------------------
+# /etc/nsswitch.conf
+#
+# Example configuration of GNU Name Service Switch functionality.
+# If you have the `glibc-doc-reference' and `info' packages installed, try:
+# `info libc "Name Service Switch"' for information about this file.
+
+passwd:         compat
+group:          compat
+shadow:         compat
+gshadow:        files
+
+hosts:          files dns
+networks:       files
+
+protocols:      db files
+services:       db files
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis
+---------------------------------------------
+---------------------------------------------
+NSSWITCH.CONF CHANGED!!
+---------------------------------------------
+---------------------------------------------
+# /etc/nsswitch.conf
+#
+# Example configuration of GNU Name Service Switch functionality.
+# If you have the `glibc-doc-reference' and `info' packages installed, try:
+# `info libc "Name Service Switch"' for information about this file.
+
+passwd:         compat nis
+group:          compat nis
+shadow:         compat nis
+gshadow:        files
+
+hosts:          files nis dns 
+networks:       files
+
+protocols:      db files
+services:       db files
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis
+---------------------------------------------
+---------------------------------------------
+End of modifying nsswitch.conf
+---------------------------------------------
+---------------------------------------------
+YP.CONF is changing!!
+---------------------------------------------
+---------------------------------------------
+#
+# yp.conf	Configuration file for the ypbind process. You can define
+#		NIS servers manually here if they can't be found by
+#		broadcasting on the local net (which is the default).
+#
+#		See the manual page of ypbind for the syntax of this file.
+#
+# IMPORTANT:	For the "ypserver", use IP addresses, or make sure that
+#		the host is in /etc/hosts. This file is only interpreted
+#		once, and if DNS isn't reachable yet the ypserver cannot
+#		be resolved and ypbind won't ever bind to the server.
+
+# ypserver ypserver.network.com
+---------------------------------------------
+---------------------------------------------
+YP.CONF has changed
+---------------------------------------------
+---------------------------------------------
+#
+# yp.conf	Configuration file for the ypbind process. You can define
+#		NIS servers manually here if they can't be found by
+#		broadcasting on the local net (which is the default).
+#
+#		See the manual page of ypbind for the syntax of this file.
+#
+# IMPORTANT:	For the "ypserver", use IP addresses, or make sure that
+#		the host is in /etc/hosts. This file is only interpreted
+#		once, and if DNS isn't reachable yet the ypserver cannot
+#		be resolved and ypbind won't ever bind to the server.
+
+# ypserver ypserver.network.com
+ypserver 10.0.0.1
+---------------------------------------------
+---------------------------------------------
+RESTARTING NIS
+---------------------------------------------
+---------------------------------------------
+DEBUG MAKE SURE ITS UNCOMMENTED
+---------------------------------------------
+---------------------------------------------
+INSTALLING NFS
+---------------------------------------------
+---------------------------------------------
+DEBUG: UNCOMMENT THE INSTALL
+---------------------------------------------
+---------------------------------------------
+END OF INSTALLATION OF NFS
+---------------------------------------------
+---------------------------------------------
+Project 4
+---------------------------------------------
+---------------------------------------------
+INSTALLING AUTOFS
+---------------------------------------------
+---------------------------------------------
+MOVING home to home.itvm25-4b
+---------------------------------------------
+---------------------------------------------
+MAKING NEW HOME
+---------------------------------------------
+---------------------------------------------
+DEBUG: UNCOMMENT CODE
+---------------------------------------------
+---------------------------------------------
+MODIFYING passwd
+---------------------------------------------
+---------------------------------------------
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+syslog:x:104:108::/home/syslog:/bin/false
+_apt:x:105:65534::/nonexistent:/bin/false
+messagebus:x:106:110::/var/run/dbus:/bin/false
+uuidd:x:107:111::/run/uuidd:/bin/false
+sysadmin:x:1000:1000:itvm25-4b,,,:/home/sysadmin:/bin/bash
+sshd:x:108:65534::/var/run/sshd:/usr/sbin/nologin
+---------------------------------------------
+---------------------------------------------
+passwd has changed to
+---------------------------------------------
+---------------------------------------------
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+bin:x:2:2:bin:/bin:/usr/sbin/nologin
+sys:x:3:3:sys:/dev:/usr/sbin/nologin
+sync:x:4:65534:sync:/bin:/bin/sync
+games:x:5:60:games:/usr/games:/usr/sbin/nologin
+man:x:6:12:man:/var/cache/man:/usr/sbin/nologin
+lp:x:7:7:lp:/var/spool/lpd:/usr/sbin/nologin
+mail:x:8:8:mail:/var/mail:/usr/sbin/nologin
+news:x:9:9:news:/var/spool/news:/usr/sbin/nologin
+uucp:x:10:10:uucp:/var/spool/uucp:/usr/sbin/nologin
+proxy:x:13:13:proxy:/bin:/usr/sbin/nologin
+www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin
+backup:x:34:34:backup:/var/backups:/usr/sbin/nologin
+list:x:38:38:Mailing List Manager:/var/list:/usr/sbin/nologin
+irc:x:39:39:ircd:/var/run/ircd:/usr/sbin/nologin
+gnats:x:41:41:Gnats Bug-Reporting System (admin):/var/lib/gnats:/usr/sbin/nologin
+nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin
+systemd-timesync:x:100:102:systemd Time Synchronization,,,:/run/systemd:/bin/false
+systemd-network:x:101:103:systemd Network Management,,,:/run/systemd/netif:/bin/false
+systemd-resolve:x:102:104:systemd Resolver,,,:/run/systemd/resolve:/bin/false
+systemd-bus-proxy:x:103:105:systemd Bus Proxy,,,:/run/systemd:/bin/false
+syslog:x:104:108::/home/syslog:/bin/false
+_apt:x:105:65534::/nonexistent:/bin/false
+messagebus:x:106:110::/var/run/dbus:/bin/false
+uuidd:x:107:111::/run/uuidd:/bin/false
+sysadmin:x:1000:1000:sysadmin,,,:/home.itvm25-4b/sysadmin:/bin/bash
+sshd:x:108:65534::/var/run/sshd:/usr/sbin/nologin
+---------------------------------------------
+---------------------------------------------
+END OF passwd CHANGE
+---------------------------------------------
+---------------------------------------------
+MODIFYING exports
+---------------------------------------------
+---------------------------------------------
+# /etc/exports: the access control list for filesystems which may be exported
+#		to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+
+
+---------------------------------------------
+---------------------------------------------
+Exports has changed to
+---------------------------------------------
+---------------------------------------------
+# /etc/exports: the access control list for filesystems which may be exported
+#		to NFS clients.  See exports(5).
+#
+# Example for NFSv2 and NFSv3:
+# /srv/homes       hostname1(rw,sync,no_subtree_check) hostname2(ro,sync,no_subtree_check)
+#
+# Example for NFSv4:
+# /srv/nfs4        gss/krb5i(rw,sync,fsid=0,crossmnt,no_subtree_check)
+# /srv/nfs4/homes  gss/krb5i(rw,sync,no_subtree_check)
+#
+
+
+#input from script
+/home.itvm25-4b 10.0.0.0/24(rw,sync,no_root_squash,no_subtree_check)
+---------------------------------------------
+---------------------------------------------
+Done modifying exports
+---------------------------------------------
+---------------------------------------------
+MODIFYING auto.master
+---------------------------------------------
+---------------------------------------------
+auto.master is changing from this...
+---------------------------------------------
+---------------------------------------------
+#
+# Sample auto.master file
+# This is a 'master' automounter map and it has the following format:
+# mount-point [map-type[,format]:]map [options]
+# For details of the format look at auto.master(5).
+#
+#/misc	/etc/auto.misc
+#
+# NOTE: mounts done from a hosts map will be mounted with the
+#	"nosuid" and "nodev" options unless the "suid" and "dev"
+#	options are explicitly given.
+#
+#/net	-hosts
+#
+# Include /etc/auto.master.d/*.autofs
+# The included files must conform to the format of this file.
+#
+####+dir:/etc/auto.master.d
+#
+# Include central master map if it can be found using
+# nsswitch sources.
+#
+# Note that if there are entries for /net or /misc (as
+# above) in the included master map any keys that are the
+# same will not be seen as the first read key seen takes
+# precedence.
+#
+###+auto.master
+
+---------------------------------------------
+---------------------------------------------
+auto.master has changed to this...
+---------------------------------------------
+---------------------------------------------
+#
+# Sample auto.master file
+# This is a 'master' automounter map and it has the following format:
+# mount-point [map-type[,format]:]map [options]
+# For details of the format look at auto.master(5).
+#
+#/misc	/etc/auto.misc
+#
+# NOTE: mounts done from a hosts map will be mounted with the
+#	"nosuid" and "nodev" options unless the "suid" and "dev"
+#	options are explicitly given.
+#
+#/net	-hosts
+#
+# Include /etc/auto.master.d/*.autofs
+# The included files must conform to the format of this file.
+#
+####+dir:/etc/auto.master.d
+#
+# Include central master map if it can be found using
+# nsswitch sources.
+#
+# Note that if there are entries for /net or /misc (as
+# above) in the included master map any keys that are the
+# same will not be seen as the first read key seen takes
+# precedence.
+#
+###+auto.master
+
+#input from script
+/home /etc/auto.home
+---------------------------------------------
+---------------------------------------------
+DONE MODIFYING auto.master
+---------------------------------------------

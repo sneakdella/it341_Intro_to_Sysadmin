@@ -1,0 +1,96 @@
+Project 5 ~ Jacob Yuhas ~ 01555126 ~ project_5.txt
+
+Chapter 9 discusses about configuring the network infrastructure: DNS, Using NIS to 
+resolve DNS and testing name servers. Before DNS and NIS name resolution was done 
+via /etc/hosts, which is all manual entry for each user. Essentially, the user had 
+to type in every IP address they visited regularly into the hosts file that they 
+wanted to resolve via a alias. NIS came along and helped with name resolution with 
+yellowpages. While it was great and redundancy could be configured with other machines
+on the network it still wasn’t a hierarchal setup like name servers are today. 
+
+Today’s name resolution works by using a series of name servers in echelon with pointer 
+records, A records and CNAME records. If the .com name server doesn’t know something, 
+it forwards the request to a root nameserver. There are 13 name servers known to exist 
+currently, with 3 of them being in the US; 2 of them being owned by the Department of 
+Defense. Bind9 is the DNS service on Linux. It can be configured to respond to requests, 
+forward lookup and reverse lookup. It creates the directory /etc/bind with multiple 
+configuration files.
+
+
++++ Server Steps +++
+
+1. ) it20 installs the DNS service called Bind9
+
+
+2.) Step two is defining an access control list within the “named.conf.local” 
+configuration. It then sets up the views (rule sets basically) for each type of 
+connection it receives (cslan, internal and external).
+
+
+3.) Step three shows the internal view database file. It lists all the hosts in 
+rows (each one is a record). I didn’t know what “IN” meant so I looked it up and 
+it means “INTERNET” doh! 
+
+-There are four types that can fit into the CLASS field in resource records.
+
+	+ “IN” for the internet,
+	+ “CS” the CSNET (Computer Science Network) which eventually 
+	  turned into National Science Foundation Network; 
+	+ “CH” for the CHAOS class (which is almost unheard of and not used)
+	   ~ basically packets over CATV coaxial; 
+	+ and finally “HS” for Hesiod which is a method to access databases; 
+	  Hesiod was discontinued in 1991.
+
+
+4.) Is pretty much the same as three except it’s the db view for the cslan. 
+
+
+5.) Is pretty much the same as three and four except it’s the db view for 
+anything external (from the outersubnets) coming in. The 158.x.x.x addresses 
+are public IPs
+
+
+6.) This step is modifying the file “nsswitch.conf” in order to put dns as the 
+first method of resolving a hostname. 
+
+
+7.) Restarting bind9 to apply changes made to the conf files.
+
+
+8.) Step eight is to ensure the “resolv.conf” file and “dhcpd.conf” have the proper
+hosts and IP addresses set for the network to pull the information from- so our VMs 
+can resolve using the dns server on our cslan/vlan. 
+
+
+9.) On itvm25-3b, I ran the command “sudo vim /etc/nsswitch.conf” to open up vim to 
+edit my nsswitch.conf file.
+
+
+	+ I swapped “hosts: files nis dns” to “hosts:dns files nis”
+
+
+10.) Testing dig~
+
+“dig @it20.cs.umb.edu it22.it.cs.umb.edu” did not work, could no resolve 
+“it20.cs.umb.edu”
+
+Instead I ran “dig @it20 it22.it.cs.umb.edu” and it gave me ifconfig equivalent to 
+a DNS server. What I mean by this is it showed the query time, what server it got it 
+from, when I requested the information, and most importantly what my query was and the
+response to that query.
+
+
+Dig essentially tests if the records are pointing to the correct ip address but also 
+provides other information such as the record types (A,CNAME,MX) and where the records
+are located.
+
+
+11.) I did a second dig test using “dig @it20 google.com” and it showed me some 
+useful information about google.com. First, I received “172.217.5.238” as a response. 
+The authority section provided the nameservers it got it from and an additional section
+had spawned to give me the IP addresses of each name server as well.
+
+I noticed a very high end number for their nameservers. The 216.x.x.x range is a class
+C-range public IP. I almost thought it was a class D or E. Nothing special. It's just 
+odd seeing traffic from a 216.x.x.x subnet
+

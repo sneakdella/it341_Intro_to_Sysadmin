@@ -1,0 +1,144 @@
+ | Jacob Yuhas | 11/17/17 | project_9 Admin Log | Automating Backups |
+-----------------------------------------------------------------------
++ Ensured ethernet cable is plugged into correct ethernet jack (IT20)
+
++ Logged onto itvm25-3b as sysadmin
+
++ Created new directory in root
+	+ "sudo mkdir guests"
+
++ made "/guests" directory modifiable by anyone
+	+ sudo chmod 777 guests
+
++ Changed directory to /usr/local/bin
+
++ Created new script
+	+ sudo vim autobackup.sh
+
++ Within vim I added the following lines
+	+ #! /bin/bash
+	+ #
+	+ # shell script to perform daily backups of /etc
+
+	+ if [ $# -lt 2 ]
+	+ then
+	+ echo Usage: $(basename $0) BACKUP_HOST BACKUP_DIRECTORY
+	+ exit 1
+	+ fi
+
+	+ backup_host=$1
+	+ backup_dir=$2
+	+ date=$(date +%F)
+	+ rsync -azvv -e ssh /etc $backup_host.it.cs.umb.edu:/$backup_dir/$date
+
++ Exited vim with ":x" (save and quit)
+
++ Changed the permissions on autobackup.sh
+	+ "sudo chmod 755 autobackup.sh"
+
+
++ Logged out of sysadmin
+
++ Logged into itvm22-3b
+	+ created /guests directory in root
+	+ changed permissions to 777 with chmod for /guests
+	+ created /guests/itvm25-3b directory
+
++ Logged out of itvm22-3b
+
++ Logged back into itvm25-3b as sysadmin
+
++ Executed 'autobackup.sh itvm22-3a /guests/itvm25-3b' from /usr/local/bin
+
++ Script was successful however it could not open /etc/passwd, /etc/shadow...
+
++ Ran script again with sudo and it worked 100%
+
++ ssh sysadmin@itvm22-3a 'ls /guests/itvm25-3b' -- the file was present!
+	+ The same ssh command above except changed 
+	  'ls /guests/itvm25-3b/2017-11-17/etc' to see all the files
+
++ Removed the backup directory from the other machine with the following command:
+	+ "ssh sysadmin@itvm22-3a 'rm -rf /guests/itvm25-3b/2017-11-17'
+
++ Checked to make sure files were deleted with
+	+ "ssh sysadmin@itvm22-3a 'ls /guests/itvm25-3b/'"
+	+ Shell returned nothing, which means nothing is there.
+
++ Attempted with CRON and nothing is showing in "/guests/itvm25-3b" on itvm22-3a
+	+ Checked /var/log/syslog and CRON is executing the command however there is no MTA to report the output.
+	+ MTA is basically a mail system.
+	+ Redirected from MTA to a log file under /cron/log.txt
+	
++ Following error was discovered:
+	
+	opening connection using: ssh itvm22-3a.it.cs.umb.edu rsync --server -vvlogDtprze.iLsfx . //guests/itvm25-3b/2017-11-17  (7 args)
+	Permission denied, please try again.
+	Permission denied, please try again.
+	Permission denied (publickey,password).
+	rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+	rsync error: error in rsync protocol data stream (code 12) at io.c(226) [sender		=3.1.1]
+
++ Remade id_rsa key as a blank private key "ssh-keygen -t rsa -b 2048"
+
++ Received same error as above but instead of permission denied I got "Host 
+	verification has failed."
+
++ Appended authorized_keys file with "cat id_rsa.pub >> authorized_keys"
+ 
++ Made multiple tries of the following:
+	+ Changing the id_rsa keys, (by making new ones)
+	+ Changing the destination VM.
+
++ Still getting "Host key verification failed"
+
++ Commented out "source $HOME/.keychain/`/bin/hostname`-sh" 
+
++ Verified that I can log on without needing to type pass-phrase to other
+	VMs on the account "jayuhas" -- found it does not work with
+	itvm22-3a.... so I switched to itvm28-3b and it worked for pass
+	phrase.
+
++ Remade the keys the blank keys AGAIN, added to keychain via the command 
+	"keychain $HOME/.ssh/id_rsa"
+
++ Added "source $HOME/.keychain/`/bin/hostname`-sh" back into script file
+
++ Verified that I can log in as jayuhas via passphrase to itvm28-3b
+
++ Cron jobs ran again and "Host Authentication Failed"
+
++++++ continuation on November 18th, 2017
+
++ Discovered an error with the crontab -e file. The slash next to "guests"
+  was producing a double slash. Changed the line to the following:
+	+ “/usr/local/bin/autobackup.sh OTHER_VIRTUAL_MACHINE guests/VIRTUAL_MAC	   HINE_NAME”
+
++ Added "ServerAliveInterval 120" to /etc/ssh/ssh_config under "Host *"
+	+ This changes how often the connection should be kept
+	  "alive" when the secure shell is active
+
++ ssh-agent treats the same destination virtual machine as seperate known
+  hosts if it has more than one FQDN. "itvm25-3b" and "itvm25-3b.it.cs.umb.edu"
+  are the same machine but ssh-agent counts both DNS names as different
+  known hosts, even though they both lead to the same machine
+
++ Recreated rsa keys with a blank paraphrase
+
++ Copied the "id_rsa.pub" and appended it into "authorzied_keys" once more
+
++ Executed the following command to add new RSA key to the keychain
+	+ "keychain $HOME/.ssh/id_rsa"
+
++ On itvm25-3b I did a secure shell into itvm28-3b with the following:
+	+ "ssh itvm28-3b.it.cs.umb.edu" instead of just "itvm28-3b"
+	+ Logged out of itvm28-3b
+
++ cronjob ran successfully afterwords, minus "/etc/passwd and /etc/shadow"
+
++ Executed "ssh itvm28-3b 'ls /guests/itvm25-3b/20171811'"
+
++ Files were present
+
+
+

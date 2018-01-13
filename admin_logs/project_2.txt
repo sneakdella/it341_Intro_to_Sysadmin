@@ -1,0 +1,75 @@
+ Jacob Yuhas | 09/19/17 | Project_2 Admin Log | Joining A Lan |
+---------------------------------------------------------------
+Questions
+
+1.) The gateway IP address is 172.16.142.1 on DHCP.... 10.0.0.1 on the Static File at the end of the PDF
+2.) The IP address of my computer is 172.16.142.130 on DHCP ...... 10.0.0.172 on the Static file setup at the end of the PDF
+3.) I found this information via the following command "cat /etc/network/interfaces"
+4.) A NAT is a Network Address Translation. A basic inbound NAT process consists of the router or firewall recieving a packet from a public IP address, changing the contents of the IP packet and sending it to an internal private IP. Rather than port mapping (which is an alternative solution at times) , you are mapping an internal IP to external and vice versa.
+
+
+----- Question 5 ------
+
+a) sudo vim /etc/network/interfaces
+
+Edit the following files (add your netmask and gateway)
+
+~auth lo
+~iface lo inet loopback
+
+----- End to Question 5 -----
+
+6.) Dynamic Host Control Protocol. This protocol (typically on a server or network switch) will automatically lease an IP address to a computer for a certain amount of time. This protocol allows for automation of handeling IP addresses without the help of a human operator. DHCP rarely needs to be tended to unless a specific server/host/client needs a static IP leased to it, which can be done easily in Ubuntu with a modification of the hosts file. In a Windows enviornment, you would pull up the DHCP services and assign it and then give it a host name in the DNS records.
+
+7.) The Hosts file defines a FQDN name for a machine and associates an IP address to it. It's a DNS record keeping file.
+
+8.) NAT is Network Address Translation. In VMware standard a NAT will seperate the network that has a NAT from the main private network it is working off of. Bridged mode allows for the VM to act as if it is a physical machine on the main private network. 
+
+
+BEGIN ADMIN LOG
+
++ Ensuring /etc/hosts file on itvm25-3b is identical to project pdf.
++ Running vim on /etc/hosts on itvm25-3b
++ Gave warning on read only mode
++ Temporarily changing permissions on /etc/hosts file to 777.
++ Added "10.0.0.1 it20.it.cs.umb.edu it20" as gateway server
++ Added the rest of the itvms in the lab to the /etc/hosts file on itvm25-3b and confirmed their records in the host files matches that of it20's /etc/hosts file
++ Added the rest of the it lab client computers to host file
++ Cross checked information, and hosts file looks accurate.
++ Changed permissions back to read only for /etc/hosts to prevent deletion or overwriting
++ Shutdown itvm25-3b
++ Modified "Network Adapter" settings in VMWare on Virtual Machine itvm25-3b from "NAT" to "Bridged"
++ Applied settings to VM
++ Started Up itvm25-3b
++ Logged in as sysadmin
++ Ran "ping it20" and shell output replied with "64 Bytes from it20.it.cs.umb.edu (10.0.0.1): icmp_seq=1 ttl=64 time=0.3ms" continously.
++ Ran "ping itvm25-3a", outcome was similar to above and successful
++ Ran "ping www.yahoo.com", outcome was similar to above and successful
++ Ran "ssh sysadmin@itvm25-3a" and logged in to itvm25-3a successfully as sysadmin
++ Took Snapshot of VM
++ Ran command "sudo cp /etc/network/interfaces /etc/network/interfaces.saved
++ Checked /etc/hosts/ for itvm25-3b's static IP address
++ itvm25-3b's static IP is "10.0.0.172"
++ Temporarily changed permissions on /etc/network/interfaces to allow editing
++ BEGIN EDITING /etc/network/interfaces file
++ Changed "iface ens33 inet dhcp" to "iface ens33 inet static"
++ Added "network 10.0.0.0" to file
++ Added "address 10.0.0.172" to file
++ Added "gateway 10.0.0.1" to file
++ Added "broadcast 255.255.255.0" to file
++ DONE EDITING /etc/network/interfaces file
++ Changes were successfully written
++ Network services restarted "sudo /etc/init.d/networking restart"
++ Network services restart successful
++ Changed permissions back to read only on /etc/network/interfaces
++ Ping to "www.yahoo.com" successful
++ Ping to itvm25-3a successful
++ Ping to itvm28-3a successful
++ "ssh sysadmin@itvm25-3a" successful
++ Copied interfaces.saved file back to /etc/network/interfaces
++ Restarted Networking Service Successfully
++ Took another snapshot of VM
++ Copied and zipped VM in another location on host computer
++ NOTE ...
++ To allow myself to SSH into itvm25-3b I reverted step 7 and restored the static settings I originally had.
++ Network Services restarted successfully.
